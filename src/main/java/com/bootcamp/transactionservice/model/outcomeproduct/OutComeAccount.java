@@ -1,12 +1,12 @@
 package com.bootcamp.transactionservice.model.outcomeproduct;
 
 import com.bootcamp.transactionservice.model.client.Client;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Getter
 @Setter

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
@@ -15,7 +17,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 
   @Override
-  public Flux<OutComeAccount> getAccounts() {
+  public List<OutComeAccount> getAccounts() {
     return feingOutComeService.findAllOutCome();
   }
 }

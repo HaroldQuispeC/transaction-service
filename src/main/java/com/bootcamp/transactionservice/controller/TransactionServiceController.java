@@ -23,6 +23,6 @@ public class TransactionServiceController {
 
     @GetMapping("/all")
     public Flux<OutComeAccount> getAllAccounts(){
-        return transactionService.getAccounts();
+        return Flux.fromIterable(transactionService.getAccounts());
     }
 }

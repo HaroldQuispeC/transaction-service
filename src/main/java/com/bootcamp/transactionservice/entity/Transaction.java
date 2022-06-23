@@ -1,13 +1,14 @@
 package com.bootcamp.transactionservice.entity;
 
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
+/**
+ * Transaction.
+ */
 @Data
 @Getter
 @Setter
@@ -17,8 +18,9 @@ public class Transaction {
   @Id
   private String accountTransactionId;
   private TransactionType transactionType;
-  private LocalDateTime transactionDate;
-  private String period;
+  private String transactionDate;
+  private String accountSerialNumber;
+  private String nameClient;
   private Double amount;
 
 }

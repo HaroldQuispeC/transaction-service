@@ -1,11 +1,19 @@
 package com.bootcamp.transactionservice.service;
 
+import com.bootcamp.transactionservice.entity.Transaction;
+import com.bootcamp.transactionservice.entity.request.RequestTransaction;
 import com.bootcamp.transactionservice.model.outcomeproduct.OutComeAccount;
-import reactor.core.publisher.Flux;
-
 import java.util.List;
+import reactor.core.publisher.Mono;
 
+/**
+ * TransactionService.
+ */
 public interface TransactionService {
 
-  List<OutComeAccount> getAccounts ();
+  List<OutComeAccount> getAccounts();
+
+  Mono<Transaction> deposit(RequestTransaction requestTransaction);
+
+  Mono<Transaction> movements(RequestTransaction requestTransaction);
 }

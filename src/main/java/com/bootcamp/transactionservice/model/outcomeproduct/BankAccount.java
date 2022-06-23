@@ -1,11 +1,14 @@
 package com.bootcamp.transactionservice.model.outcomeproduct;
 
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 
+/**
+ * BankAccount.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

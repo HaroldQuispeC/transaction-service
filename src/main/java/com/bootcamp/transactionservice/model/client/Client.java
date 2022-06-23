@@ -3,6 +3,9 @@ package com.bootcamp.transactionservice.model.client;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * Client.
+ */
 @Data
 @Builder
 public class Client {

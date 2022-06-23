@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DebitCard.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

@@ -2,6 +2,9 @@ package com.bootcamp.transactionservice.model.client;
 
 import lombok.Data;
 
+/**
+ * NaturalPerson.
+ */
 @Data
 public class NaturalPerson {
 

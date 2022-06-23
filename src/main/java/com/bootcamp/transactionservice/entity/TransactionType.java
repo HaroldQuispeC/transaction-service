@@ -2,6 +2,9 @@ package com.bootcamp.transactionservice.entity;
 
 import lombok.Data;
 
+/**
+ * TransactionType.
+ */
 @Data
 public class TransactionType {
 

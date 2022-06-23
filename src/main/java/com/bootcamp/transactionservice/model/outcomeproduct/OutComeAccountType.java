@@ -2,6 +2,9 @@ package com.bootcamp.transactionservice.model.outcomeproduct;
 
 import lombok.Data;
 
+/**
+ * OutComeAccountType.
+ */
 @Data
 public class OutComeAccountType {
 

@@ -33,31 +33,65 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   @Override
-  public Mono<Transaction> deposit(RequestTransaction requestTransaction) {
+  public Mono<Transaction> movementsBusiness(RequestTransaction requestTransaction) {
+    String compare = requestTransaction.getTransactionType().getTransactionTypeId();
     String identifier = requestTransaction.getIdentifier();
     String accountSerialNumber = requestTransaction.getAccountSerialNumber();
-
     Transaction transaction = new Transaction();
 
-    transaction.setTransactionType(requestTransaction.getTransactionType());
-    transaction.setTransactionDate(getTimeNow());
-    transaction.setAccountSerialNumber(accountSerialNumber);
+    if(compare.equals("1")){
+      transaction = setValues(requestTransaction);
 
-    OutComeAccount outComeAccount = feingOutComeService.findOutComeAccountByDni(identifier);
-    transaction.setNameClient(outComeAccount.getClient().getNaturalPerson().getName());
-    transaction.setAmount(requestTransaction.getAmount());
-    BankAccount bankAccount = feingOutComeService
-            .findAccountByAccountSerialNumber(identifier, accountSerialNumber);
-    bankAccount.setCurrentBalance(calculateBalanceDeposit(bankAccount,
-            requestTransaction.getAmount()));
-    ArrayList<BankAccount> bankAccounts = new ArrayList<>();
-    bankAccounts.add(bankAccount);
+      OutComeAccount outComeAccount = feingOutComeService.findOutComeAccountByRuc(identifier);
 
-    outComeAccount.setBankAccounts(bankAccounts);
-    feingOutComeService.saveOutAccount(outComeAccount);
+      transaction.setNameClient(outComeAccount.getClient().getBusiness().getBusinessName());
+      BankAccount bankAccount = feingOutComeService
+              .findAccountByAccountSerialNumber(identifier, accountSerialNumber);
+
+      bankAccount.setCurrentBalance(calculateBalanceDeposit(bankAccount,
+              requestTransaction.getAmount()));
+
+      List<BankAccount> listAccounts = feingOutComeService.getAccountsByRuc(identifier);
+      for (int i = 0; i < listAccounts.size(); i++) {
+        if (listAccounts.get(i).getAccountSerialNumber().equals(accountSerialNumber)) {
+          listAccounts.set(i,bankAccount);
+        }
+      }
+
+      ArrayList<BankAccount> bankAccounts = new ArrayList<BankAccount>(listAccounts);
+
+      outComeAccount.setBankAccounts(bankAccounts);
+      feingOutComeService.saveOutAccount(outComeAccount);
+
+    } else if (compare.equals("2")){
+
+      transaction = setValues(requestTransaction);
+
+      OutComeAccount outComeAccount = feingOutComeService.findOutComeAccountByRuc(identifier);
+
+      transaction.setNameClient(outComeAccount.getClient().getBusiness().getBusinessName());
+      BankAccount bankAccount = feingOutComeService
+              .findAccountByAccountSerialNumber(identifier, accountSerialNumber);
+
+      bankAccount.setCurrentBalance(calculateBalanceWithdrawal(bankAccount,
+              requestTransaction.getAmount()));
+
+      List<BankAccount> listAccounts = feingOutComeService.getAccountsByRuc(identifier);
+      for (int i = 0; i < listAccounts.size(); i++) {
+        if (listAccounts.get(i).getAccountSerialNumber().equals(accountSerialNumber)) {
+          listAccounts.set(i,bankAccount);
+        }
+      }
+
+      ArrayList<BankAccount> bankAccounts = new ArrayList<BankAccount>(listAccounts);
+
+      outComeAccount.setBankAccounts(bankAccounts);
+      feingOutComeService.saveOutAccount(outComeAccount);
+    }
 
     return Mono.just(transaction);
   }
+
 
   @Override
   public Mono<Transaction> movements(RequestTransaction requestTransaction) {
@@ -105,10 +139,7 @@ public class TransactionServiceImpl implements TransactionService {
       outComeAccount.setBankAccounts(bankAccounts);
       feingOutComeService.saveOutAccount(outComeAccount);
 
-    } else if (compare.equals("3")) {
-      return null;
     }
-
     return Mono.just(transaction);
   }
 

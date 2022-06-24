@@ -13,7 +13,7 @@ public interface TransactionService {
 
   List<OutComeAccount> getAccounts();
 
-  Mono<Transaction> deposit(RequestTransaction requestTransaction);
+  Mono<Transaction> movementsBusiness(RequestTransaction requestTransaction);
 
   Mono<Transaction> movements(RequestTransaction requestTransaction);
 }

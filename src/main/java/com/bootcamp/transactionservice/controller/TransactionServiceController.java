@@ -29,9 +29,9 @@ public class TransactionServiceController {
     return Flux.fromIterable(transactionService.getAccounts());
   }
 
-  @PostMapping("/deposit")
+  @PostMapping("/movementsBusinessAccounts")
   public Mono<Transaction> deposit(@RequestBody RequestTransaction requestTransaction) {
-    return transactionService.deposit(requestTransaction);
+    return transactionService.movementsBusiness(requestTransaction);
   }
 
   @PostMapping("/movements")

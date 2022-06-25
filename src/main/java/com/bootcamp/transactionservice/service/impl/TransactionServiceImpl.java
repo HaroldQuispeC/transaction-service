@@ -39,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
     String accountSerialNumber = requestTransaction.getAccountSerialNumber();
     Transaction transaction = new Transaction();
 
-    if(compare.equals("1")){
+    if (compare.equals("1")) {
       transaction = setValues(requestTransaction);
 
       OutComeAccount outComeAccount = feingOutComeService.findOutComeAccountByRuc(identifier);
@@ -54,7 +54,7 @@ public class TransactionServiceImpl implements TransactionService {
       List<BankAccount> listAccounts = feingOutComeService.getAccountsByRuc(identifier);
       for (int i = 0; i < listAccounts.size(); i++) {
         if (listAccounts.get(i).getAccountSerialNumber().equals(accountSerialNumber)) {
-          listAccounts.set(i,bankAccount);
+          listAccounts.set(i, bankAccount);
         }
       }
 
@@ -63,7 +63,7 @@ public class TransactionServiceImpl implements TransactionService {
       outComeAccount.setBankAccounts(bankAccounts);
       feingOutComeService.saveOutAccount(outComeAccount);
 
-    } else if (compare.equals("2")){
+    } else if (compare.equals("2")) {
 
       transaction = setValues(requestTransaction);
 
@@ -79,7 +79,7 @@ public class TransactionServiceImpl implements TransactionService {
       List<BankAccount> listAccounts = feingOutComeService.getAccountsByRuc(identifier);
       for (int i = 0; i < listAccounts.size(); i++) {
         if (listAccounts.get(i).getAccountSerialNumber().equals(accountSerialNumber)) {
-          listAccounts.set(i,bankAccount);
+          listAccounts.set(i, bankAccount);
         }
       }
 
